@@ -1,0 +1,130 @@
+
+import java.util.Scanner;
+import java.util.Random;
+
+public static void main(String[] args) {
+char [] [] board; char win; char player;
+int size = getBoardSize();
+
+while(size >= 3) {
+board = createEmptyBoard( size );
+player = getStartingPlayer();
+do {
+getMove(board, player);
+player = player=='O'?'X':'O'; // switch players
+win = checkForWin(board);
+} while(win == 'N'); // must be F, O or X to leave loop
+if(win == 'F'){
+System.out.printf("\nThe board is Full: no Winner\n");
+} else {
+System.out.printf("\nThe winner is %c\n", win);
+}
+displayBoard(board);
+size = getBoardSize();
+} // end play games loop
+} // end main
+
+/*
+* returns 3, 4 or 5 for the size of the play board
+* or -1 to quit
+* This is complete, no changes necessary
+*/
+public static int getBoardSize() {
+int retval;
+Scanner keyboard = new Scanner(System.in);
+do {
+System.out.printf("Enter board size 3, 4, 5 or -1 to quit: ");
+retval = keyboard.nextInt();
+} while(retval != 3 && retval != 4 && retval != 5 && retval != -1);
+
+keyboard.nextLine(); // you should know why by now
+
+return retval; // this MUST BE LAST LINE in this method()
+} // getBoardSize
+
+/*
+* randomly selects X or O as the starting player
+*
+*/
+public static char getStartingPlayer(){
+char retval = 'X';
+
+Random randomNumbers = new Random();
+int player = randomNumbers.nextInt(2);
+
+switch (player) {
+case 0:
+retval = 'O';
+break;
+
+case 1:
+retval = 'X';
+break;
+}//end switch
+
+
+System.out.printf("\n\tNew Game. Starting player is %c\n", retval);
+return retval; // this MUST BE LAST LINE in this method()
+} // end getStartingPlayer
+
+/**
+* gets new memory for a board and fills all cells with a minus sign '-'
+* @param size the board if 3 is 3 x 3, if 4 is 4 x 4 etc.
+*/
+public static char [][] createEmptyBoard(int size) {
+char [] [] board = new char [size][size];
+
+for (char row = 0; row < board.length; row++) {
+System.out.println();
+for (char col = 0; col < board[row].length; col++) {
+board[row][col] = '-';
+System.out.print(board[row][col] + "\t");
+
+}//end col
+}//end row
+
+return board; // this MUST BE LAST LINE in this method()
+} // end createEmptyBoard
+
+/**
+* 1. displays board and
+* 2. gets row column indexes for next move
+* 3. makes sure the cell has a '-' is a legal move
+* 4. loops till legal
+* 5. puts the player's X or O at that cell
+* @param board the current play board
+* @param the X or O of the current player
+*/
+public static void getMove(char [][] board, char player){
+System.out.printf("Player %c move\n", player);
+displayBoard(board);
+
+
+
+
+} // end getMove
+
+/*
+* displays the current play board to the console
+* @param board the current play board to be displayed
+*/
+public static void displayBoard(char [][] board) {
+
+} // end displayBoard
+
+/* returns X, O, F or N
+* returns X for X wins
+* O for O wins
+* F for board Full no winner
+* or N for No winner yet
+* @param board, the current play board to be checked
+*/
+public static char checkForWin(char [][] board){
+char retval = 'F'; //
+
+
+return retval; // this MUST BE LAST LINE in this method()
+} // end checkForWin
+
+
+}
